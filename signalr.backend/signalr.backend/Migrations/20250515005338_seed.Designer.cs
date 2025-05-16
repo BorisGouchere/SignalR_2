@@ -12,15 +12,15 @@ using signalr.backend.Data;
 namespace signalr.backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240216202830_RemoveMessages")]
-    partial class RemoveMessages
+    [Migration("20250515005338_seed")]
+    partial class seed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.16")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

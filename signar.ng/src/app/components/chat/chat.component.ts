@@ -47,13 +47,18 @@ export class ChatComponent  {
     });
 
     // TODO: Écouter le message pour mettre à jour la liste de channels
-
+    this.hubConnection.on('ChannelsList', (data) => {
+      this.channelsList = data;
+    });
     this.hubConnection.on('NewMessage', (message) => {
       this.messages.push(message);
     });
 
     // TODO: Écouter le message pour quitter un channel (lorsque le channel est effacé)
-
+    this.hubConnection.on('LeaveChannel', (message) => {      
+        this.selectedChannel = null;
+      })
+    
     // On se connecte au Hub
     this.hubConnection
       .start()
@@ -82,10 +87,14 @@ export class ChatComponent  {
 
   createChannel(){
     // TODO: Ajouter un invoke
+    this.hubConnection!.invoke('CreateChannel', this.newChannelName);
+    this.newChannelName = "";
   }
 
   deleteChannel(channel: Channel){
     // TODO: Ajouter un invoke
+    this.hubConnection!.invoke('DeleteChannel', channel.id);
+    //this.selectedChannel = null;
   }
 
   leaveChannel(){
