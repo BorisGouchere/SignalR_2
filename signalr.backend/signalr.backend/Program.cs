@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using signalr.backend.Data;
 using signalr.backend.Hubs;
+using signalr.backend.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddSingleton<ChatService>();
+builder.Services.AddHostedService<ChatService>(p => p.GetService<ChatService>());
 
 builder.Services.AddControllersWithViews();
 
